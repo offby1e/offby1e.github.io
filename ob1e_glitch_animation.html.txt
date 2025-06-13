@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OB/E 글리치 애니메이션</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .logo-container {
+            position: relative;
+            font-size: 8rem;
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .logo {
+            position: relative;
+            z-index: 2;
+        }
+
+        .slash {
+            color: #ff4500;
+            display: inline-block;
+            position: relative;
+            animation: slashToOne 4s ease-in-out infinite;
+        }
+
+        .glitch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .glitch-1 {
+            animation: glitch1 4s ease-in-out infinite;
+            color: #ff0080;
+            transform: translateX(-2px);
+        }
+
+        .glitch-2 {
+            animation: glitch2 4s ease-in-out infinite;
+            color: #00ff80;
+            transform: translateX(2px);
+        }
+
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 255, 0, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scanlines 0.1s linear infinite;
+        }
+
+        .noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxmaWx0ZXIgaWQ9Im5vaXNlIiB4PSIwJSIgeT0iMCUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogICAgICA8ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgcmVzdWx0PSJub2lzZSIvPgogICAgICA8ZmVDb2xvck1hdHJpeCBpbj0ibm9pc2UiIHR5cGU9InNhdHVyYXRlIiB2YWx1ZXM9IjAiLz4KICAgIDwvZmlsdGVyPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjAyIi8+Cjwvc3ZnPg==');
+            opacity: 0;
+            animation: noise 4s ease-in-out infinite;
+        }
+
+        @keyframes slashToOne {
+            0%, 20% {
+                content: "/";
+                transform: rotate(0deg) scale(1);
+                filter: hue-rotate(0deg);
+            }
+            25% {
+                transform: rotate(5deg) scale(1.1);
+                filter: hue-rotate(45deg) blur(1px);
+            }
+            30% {
+                transform: rotate(-3deg) scale(0.95);
+                filter: hue-rotate(-30deg) blur(2px);
+            }
+            35% {
+                transform: rotate(2deg) scale(1.05);
+                filter: hue-rotate(60deg) blur(1px);
+            }
+            40%, 70% {
+                content: "1";
+                transform: rotate(0deg) scale(1);
+                filter: hue-rotate(0deg) blur(0px);
+            }
+            75% {
+                transform: rotate(-2deg) scale(1.05);
+                filter: hue-rotate(-45deg) blur(1px);
+            }
+            80% {
+                transform: rotate(3deg) scale(0.95);
+                filter: hue-rotate(30deg) blur(2px);
+            }
+            85% {
+                transform: rotate(-1deg) scale(1.02);
+                filter: hue-rotate(-15deg) blur(1px);
+            }
+            90%, 100% {
+                content: "/";
+                transform: rotate(0deg) scale(1);
+                filter: hue-rotate(0deg) blur(0px);
+            }
+        }
+
+        @keyframes glitch1 {
+            0%, 20%, 40%, 70%, 90%, 100% {
+                opacity: 0;
+                transform: translateX(0px);
+            }
+            25%, 35%, 75%, 85% {
+                opacity: 0.8;
+                transform: translateX(-3px) skew(-2deg);
+            }
+            30%, 80% {
+                opacity: 0.6;
+                transform: translateX(-2px) skew(-1deg);
+            }
+        }
+
+        @keyframes glitch2 {
+            0%, 20%, 40%, 70%, 90%, 100% {
+                opacity: 0;
+                transform: translateX(0px);
+            }
+            27%, 37%, 77%, 87% {
+                opacity: 0.7;
+                transform: translateX(3px) skew(1deg);
+            }
+            32%, 82% {
+                opacity: 0.5;
+                transform: translateX(2px) skew(2deg);
+            }
+        }
+
+        @keyframes scanlines {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(4px);
+            }
+        }
+
+        @keyframes noise {
+            0%, 20%, 40%, 70%, 90%, 100% {
+                opacity: 0;
+            }
+            25%, 35%, 75%, 85% {
+                opacity: 0.05;
+            }
+        }
+
+        /* 슬래시가 1로 변할 때의 내용 변경 */
+        .slash::before {
+            content: "/";
+            animation: contentChange 4s ease-in-out infinite;
+        }
+
+        @keyframes contentChange {
+            0%, 20% {
+                content: "/";
+            }
+            40%, 70% {
+                content: "1";
+            }
+            90%, 100% {
+                content: "/";
+            }
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .logo-container {
+                font-size: 4rem;
+            }
+        }
+
+        /* 클릭하면 애니메이션 재시작 */
+        .logo-container:hover {
+            cursor: pointer;
+            animation: pulse 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container" onclick="restartAnimation()">
+        <div class="logo">
+            OB<span class="slash"></span>E
+        </div>
+        <div class="glitch-layer glitch-1">
+            OB<span class="slash"></span>E
+        </div>
+        <div class="glitch-layer glitch-2">
+            OB<span class="slash"></span>E
+        </div>
+        <div class="scanlines"></div>
+        <div class="noise"></div>
+    </div>
+
+    <script>
+        function restartAnimation() {
+            const container = document.querySelector('.logo-container');
+            container.style.animation = 'none';
+            container.offsetHeight; // 강제 리플로우
+            container.style.animation = null;
+            
+            // 모든 애니메이션 요소들 재시작
+            const animatedElements = document.querySelectorAll('.slash, .glitch-1, .glitch-2, .scanlines, .noise');
+            animatedElements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight;
+                el.style.animation = null;
+            });
+        }
+
+        // 페이지 로드 시 자동 시작
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // 키보드 이벤트로도 재시작 가능 (스페이스바)
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                restartAnimation();
+            }
+        });
+    </script>
+</body>
+</html>
