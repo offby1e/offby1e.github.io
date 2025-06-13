@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OB1E Glitch</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .logo-container {
+      position: relative;
+      font-size: 8rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .logo {
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo::before,
+    .logo::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      color: #fff;
+      z-index: -1;
+    }
+
+    .logo::before {
+      color: #f0f;
+      left: 2px;
+      text-shadow: 1px 0 red;
+      animation: glitchTop 2s infinite linear alternate-reverse;
+    }
+
+    .logo::after {
+      color: #0ff;
+      left: -2px;
+      text-shadow: -1px 0 blue;
+      animation: glitchBottom 2s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchTop {
+      0% { clip-path: inset(0 0 90% 0); transform: translateY(-2px); }
+      20% { clip-path: inset(0 0 85% 0); transform: translateX(-2px); }
+      40% { clip-path: inset(0 0 80% 0); transform: translateY(-1px); }
+      60% { clip-path: inset(0 0 75% 0); transform: translateX(2px); }
+      80% { clip-path: inset(0 0 70% 0); transform: translateY(1px); }
+      100% { clip-path: inset(0 0 90% 0); transform: translateX(-1px); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip-path: inset(90% 0 0 0); transform: translateY(2px); }
+      20% { clip-path: inset(85% 0 0 0); transform: translateX(2px); }
+      40% { clip-path: inset(80% 0 0 0); transform: translateY(1px); }
+      60% { clip-path: inset(75% 0 0 0); transform: translateX(-2px); }
+      80% { clip-path: inset(70% 0 0 0); transform: translateY(-1px); }
+      100% { clip-path: inset(90% 0 0 0); transform: translateX(1px); }
+    }
+
+    .subtext {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #fff;
+      opacity: 0.6;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 4px rgba(255,255,255,0.3);
+      }
+      to {
+        text-shadow: 0 0 8px rgba(255,255,255,0.6);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .logo-container {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <div class="logo" id="logo" data-text="OB1E">OB1E</div>
+    <div class="subtext">Off by One Error</div>
+  </div>
+
+  <script>
+    // 1에서 /로 바꾸는 전환
+    window.addEventListener("DOMContentLoaded", () => {
+      const logo = document.getElementById("logo");
+      setTimeout(() => {
+        const newText = logo.textContent.replace("1", "/");
+        logo.textContent = newText;
+        logo.setAttribute("data-text", newText);
+      }, 5000); // 5초 후에 한 번만 바뀜
+    });
+  </script>
+</body>
+</html>
