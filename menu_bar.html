@@ -86,6 +86,7 @@
     
     .nav-links li {
         position: relative;
+        opacity: 1; /* 초기 opacity를 1로 변경 */
     }
     
     .nav-links a {
@@ -100,6 +101,7 @@
     
     .nav-links a:hover {
         color: #ffffff;
+        transform: translateY(-2px);
     }
     
     .nav-links a::after {
@@ -125,7 +127,7 @@
     
     /* CTA Button */
     .nav-cta {
-        background: #ff1d1d;
+        background: #ff1d1d !important;
         color: #ffffff !important;
         padding: 0.7rem 1.5rem;
         border-radius: 8px;
@@ -136,7 +138,7 @@
     }
     
     .nav-cta:hover {
-        background: #e01a1a;
+        background: #e01a1a !important;
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(255, 29, 29, 0.4);
     }
@@ -270,7 +272,7 @@
     
     /* Responsive Design */
     @media (max-width: 768px) {
-        .nav-links {
+        .nav-links:not(.mobile-menu .nav-links) {
             display: none;
         }
         
@@ -318,17 +320,17 @@
         animation: fadeInUp 0.6s ease forwards;
     }
     
-    /* Loading Animation */
-    .nav-links li {
+    /* Staggered loading animation - only apply to elements with .animate class */
+    .nav-links li.animate {
         opacity: 0;
         animation: fadeInUp 0.6s ease forwards;
     }
     
-    .nav-links li:nth-child(1) { animation-delay: 0.1s; }
-    .nav-links li:nth-child(2) { animation-delay: 0.2s; }
-    .nav-links li:nth-child(3) { animation-delay: 0.3s; }
-    .nav-links li:nth-child(4) { animation-delay: 0.4s; }
-    .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+    .nav-links li.animate:nth-child(1) { animation-delay: 0.1s; }
+    .nav-links li.animate:nth-child(2) { animation-delay: 0.2s; }
+    .nav-links li.animate:nth-child(3) { animation-delay: 0.3s; }
+    .nav-links li.animate:nth-child(4) { animation-delay: 0.4s; }
+    .nav-links li.animate:nth-child(5) { animation-delay: 0.5s; }
 </style>
 ```
 
@@ -470,19 +472,6 @@
     // Initialize active link on page load
     highlightNavLink();
 
-    // Add hover effects to navigation items
-    navLinks.forEach(link => {
-        if (!link.classList.contains('nav-cta')) {
-            link.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-2px)';
-            });
-            
-            link.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        }
-    });
-
     // Keyboard accessibility
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
@@ -509,6 +498,14 @@
     // Observe demo sections for animations
     sections.forEach(section => {
         observer.observe(section);
+    });
+
+    // Optional: Add staggered animation to navigation items on page load
+    window.addEventListener('load', () => {
+        const desktopNavItems = document.querySelectorAll('.nav:not(.mobile-menu) .nav-links li');
+        desktopNavItems.forEach(item => {
+            item.classList.add('animate');
+        });
     });
 </script>
 ```
