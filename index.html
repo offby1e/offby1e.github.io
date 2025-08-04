@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OB/E - Advanced Software Solutions</title>
+    <title>OB/E - Personal Projects & Digital Experiments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
             background: #0a0a0a;
             color: #ffffff;
+            transition: opacity 0.4s ease;
         }
-        
-        /* Header */
+        /* Header & Navigation */
         .header {
             position: fixed;
             top: 0;
@@ -32,7 +32,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.3s ease;
         }
-        
         .nav {
             display: flex;
             justify-content: space-between;
@@ -41,7 +40,6 @@
             margin: 0 auto;
             padding: 1.2rem 2rem;
         }
-        
         .logo-nav {
             font-size: 1.8rem;
             font-weight: 700;
@@ -49,18 +47,16 @@
             text-decoration: none;
             letter-spacing: -1px;
         }
-        
         .logo-nav .slash {
             color: #ff1d1d;
             margin: 0 2px;
         }
-        
         .nav-links {
             display: flex;
             list-style: none;
             gap: 2.5rem;
+            align-items: center;
         }
-        
         .nav-links a {
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
@@ -69,11 +65,10 @@
             transition: all 0.3s ease;
             position: relative;
         }
-        
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: #ffffff;
         }
-        
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -84,11 +79,57 @@
             background: #ff1d1d;
             transition: width 0.3s ease;
         }
-        
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
-        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            min-width: 200px;
+            padding: 0.8rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .dropdown-content a:hover {
+            color: #ffffff;
+            background: rgba(255, 29, 29, 0.1);
+            padding-left: 1.8rem;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -98,7 +139,6 @@
             position: relative;
             overflow: hidden;
         }
-        
         .hero::before {
             content: '';
             position: absolute;
@@ -109,7 +149,6 @@
             background: radial-gradient(circle at 20% 50%, rgba(255, 29, 29, 0.1) 0%, transparent 50%),
                         radial-gradient(circle at 80% 20%, rgba(255, 29, 29, 0.05) 0%, transparent 50%);
         }
-        
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -121,7 +160,6 @@
             position: relative;
             z-index: 2;
         }
-        
         .hero-content h1 {
             font-size: 4.5rem;
             font-weight: 800;
@@ -129,15 +167,12 @@
             letter-spacing: -3px;
             line-height: 1.1;
         }
-        
         .hero-content .logo-text {
             color: #ffffff;
         }
-        
         .hero-content .logo-text .slash {
             color: #ff1d1d;
         }
-        
         .hero-subtitle {
             font-size: 1.3rem;
             font-weight: 400;
@@ -145,20 +180,17 @@
             margin-bottom: 2rem;
             line-height: 1.6;
         }
-        
         .hero-description {
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.6);
             margin-bottom: 3rem;
             line-height: 1.7;
         }
-        
         .cta-group {
             display: flex;
             gap: 1rem;
             align-items: center;
         }
-        
         .btn {
             padding: 1rem 2rem;
             border: none;
@@ -172,36 +204,30 @@
             align-items: center;
             gap: 0.5rem;
         }
-        
         .btn-primary {
             background: #ff1d1d;
             color: #ffffff;
         }
-        
         .btn-primary:hover {
             background: #e01a1a;
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(255, 29, 29, 0.3);
         }
-        
         .btn-secondary {
             background: transparent;
             color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.4);
         }
-        
         .hero-visual {
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
         }
-        
         .code-window {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -211,75 +237,62 @@
             max-width: 500px;
             backdrop-filter: blur(10px);
         }
-        
         .window-header {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
-        
         .window-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
         }
-        
         .dot-red { background: #ff5f57; }
         .dot-yellow { background: #ffbd2e; }
         .dot-green { background: #28ca42; }
-        
         .code-content {
             font-family: 'Fira Code', monospace;
             font-size: 0.9rem;
             line-height: 1.6;
         }
-        
         .code-line {
             margin-bottom: 0.5rem;
         }
-        
         .keyword { color: #ff1d1d; }
         .string { color: #a6e22e; }
         .comment { color: rgba(255, 255, 255, 0.4); }
         .function { color: #f92672; }
-        
         /* Services Section */
         .services {
             padding: 8rem 0;
             background: #0a0a0a;
         }
-        
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
         .section-header {
             text-align: center;
             margin-bottom: 5rem;
         }
-        
         .section-title {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 1rem;
             letter-spacing: -1px;
         }
-        
         .section-subtitle {
             font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.6);
             max-width: 600px;
             margin: 0 auto;
         }
-        
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
-        
         .service-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -289,7 +302,6 @@
             position: relative;
             overflow: hidden;
         }
-        
         .service-card::before {
             content: '';
             position: absolute;
@@ -301,17 +313,14 @@
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
-        
         .service-card:hover::before {
             transform: scaleX(1);
         }
-        
         .service-card:hover {
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.15);
             transform: translateY(-5px);
         }
-        
         .service-icon {
             width: 50px;
             height: 50px;
@@ -324,30 +333,25 @@
             margin-bottom: 1.5rem;
             color: #ff1d1d;
         }
-        
         .service-title {
             font-size: 1.4rem;
             font-weight: 600;
             margin-bottom: 1rem;
         }
-        
         .service-description {
             color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
             margin-bottom: 1.5rem;
         }
-        
         .service-features {
             list-style: none;
         }
-        
         .service-features li {
             color: rgba(255, 255, 255, 0.6);
             margin-bottom: 0.5rem;
             padding-left: 1rem;
             position: relative;
         }
-        
         .service-features li::before {
             content: '▶';
             position: absolute;
@@ -355,52 +359,44 @@
             color: #ff1d1d;
             font-size: 0.8rem;
         }
-        
         /* About Section */
         .about {
             padding: 8rem 0;
             background: rgba(255, 255, 255, 0.01);
         }
-        
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 6rem;
             align-items: center;
         }
-        
         .about-content h2 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 2rem;
             letter-spacing: -1px;
         }
-        
         .about-content p {
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1.5rem;
             line-height: 1.7;
         }
-        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             margin-top: 3rem;
         }
-        
         .stat-item {
             text-align: center;
         }
-        
         .stat-number {
             font-size: 2.5rem;
             font-weight: 700;
             color: #ff1d1d;
             display: block;
         }
-        
         .stat-label {
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.6);
@@ -408,17 +404,14 @@
             letter-spacing: 1px;
             margin-top: 0.5rem;
         }
-        
         .about-visual {
             position: relative;
         }
-        
         .tech-stack {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
         }
-        
         .tech-item {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -427,54 +420,45 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-        
         .tech-item:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: #ff1d1d;
         }
-        
         .tech-icon {
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
-        
         .tech-name {
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
         }
-        
         /* Contact Section */
         .contact {
             padding: 8rem 0;
             background: #0a0a0a;
         }
-        
         .contact-content {
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
-        
         .contact h2 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
-        
         .contact p {
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 3rem;
         }
-        
         .contact-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
             margin-bottom: 2rem;
         }
-        
         .contact-input {
             padding: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -484,29 +468,24 @@
             font-size: 1rem;
             transition: border-color 0.3s ease;
         }
-        
         .contact-input:focus {
             outline: none;
             border-color: #ff1d1d;
         }
-        
         .contact-input::placeholder {
             color: rgba(255, 255, 255, 0.4);
         }
-        
         .contact-message {
             grid-column: 1 / -1;
             resize: vertical;
             min-height: 120px;
         }
-        
         /* Footer */
         .footer {
             background: rgba(255, 255, 255, 0.02);
             padding: 3rem 0 1rem;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
-        
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
@@ -515,32 +494,26 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
         }
-        
         .footer-section h3 {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 1rem;
             color: #ffffff;
         }
-        
         .footer-section ul {
             list-style: none;
         }
-        
         .footer-section ul li {
             margin-bottom: 0.5rem;
         }
-        
         .footer-section ul li a {
             color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        
         .footer-section ul li a:hover {
             color: #ffffff;
         }
-        
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             margin-top: 2rem;
@@ -549,35 +522,45 @@
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.9rem;
         }
-        
         /* Responsive */
         @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
             .nav-links {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                gap: 1.5rem;
+                z-index: 99;
             }
-            
+            .nav-links.active {
+                display: flex;
+            }
             .hero-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-            
             .hero-content h1 {
                 font-size: 3rem;
             }
-            
             .about-grid {
                 grid-template-columns: 1fr;
                 gap: 3rem;
             }
-            
             .services-grid {
                 grid-template-columns: 1fr;
             }
-            
             .contact-form {
                 grid-template-columns: 1fr;
             }
-            
             .cta-group {
                 flex-direction: column;
                 align-items: stretch;
@@ -589,12 +572,66 @@
     <!-- Header -->
     <header class="header">
         <nav class="nav">
-            <a href="#" class="logo-nav">OB<span class="slash">/</span>E</a>
+            <a href="index.html" class="logo-nav">OB<span class="slash">/</span>E</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <!-- Home Dropdown -->
+                <li class="dropdown">
+                    <a href="index.html" class="active">Home</a>
+                    <div class="dropdown-content">
+                        <a href="index.html#home">Overview</a>
+                        <a href="index.html#projects">Featured Projects</a>
+                        <a href="index.html#about">About Me</a>
+                        <a href="index.html#contact">Get in Touch</a>
+                    </div>
+                </li>
+                <!-- About -->
+                <li class="dropdown">
+                    <a href="About/index.html">About</a>
+                    <div class="dropdown-content">
+                        <a href="About/index.html">Who I Am</a>
+                        <a href="About/skills.html">Skills & Stack</a>
+                        <a href="About/story.html">My Journey</a>
+                    </div>
+                </li>
+                <!-- Projects -->
+                <li class="dropdown">
+                    <a href="Projects/index.html">Projects</a>
+                    <div class="dropdown-content">
+                        <a href="Projects/index.html">All Projects</a>
+                        <a href="Projects/index.html#web">Web Apps</a>
+                        <a href="Projects/index.html#ai">AI Tools</a>
+                        <a href="Projects/index.html#design">Interactive Design</a>
+                    </div>
+                </li>
+                <!-- Blog -->
+                <li class="dropdown">
+                    <a href="Blog/index.html">Blog</a>
+                    <div class="dropdown-content">
+                        <a href="Blog/index.html">Latest Posts</a>
+                        <a href="Blog/category/tech.html">Tech Notes</a>
+                        <a href="Blog/category/life.html">Life & Learning</a>
+                        <a href="Blog/category/tutorials.html">Tutorials</a>
+                    </div>
+                </li>
+                <!-- Lab -->
+                <li class="dropdown">
+                    <a href="Lab/canvas-animation.html">Lab</a>
+                    <div class="dropdown-content">
+                        <a href="Lab/canvas-animation.html">Canvas Experiments</a>
+                        <a href="Lab/webgl-demo.html">WebGL & 3D</a>
+                        <a href="Lab/voice-ai.html">Voice & AI</a>
+                        <a href="Lab/ai-chat.html">Chat with Me</a>
+                    </div>
+                </li>
+                <!-- Contact -->
+                <li><a href="Contact/index.html">Contact</a></li>
+                <!-- Assets -->
+                <li><a href="Assets/index.html">Assets</a></li>
             </ul>
         </nav>
     </header>
@@ -604,15 +641,14 @@
         <div class="hero-grid">
             <div class="hero-content">
                 <h1 class="logo-text">OB<span class="slash">/</span>E</h1>
-                <p class="hero-subtitle">Advanced Software Solutions for Modern Business</p>
+                <p class="hero-subtitle">Personal Projects, Code & Digital Experiments</p>
                 <p class="hero-description">
-                    We develop cutting-edge software solutions that drive innovation, 
-                    streamline operations, and accelerate business growth through 
-                    intelligent technology.
+                    I build things with code, curiosity, and a bit of chaos. 
+                    From clean web apps to experimental AI, this is where I create, break, and learn.
                 </p>
                 <div class="cta-group">
-                    <a href="#services" class="btn btn-primary">Explore Solutions</a>
-                    <a href="#contact" class="btn btn-secondary">Get Started</a>
+                    <a href="Projects/index.html" class="btn btn-primary">See My Work</a>
+                    <a href="About/index.html" class="btn btn-secondary">Know Me</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -624,22 +660,22 @@
                     </div>
                     <div class="code-content">
                         <div class="code-line">
-                            <span class="keyword">class</span> <span class="function">Innovation</span> {
+                            <span class="keyword">class</span> <span class="function">Creator</span> {
                         </div>
                         <div class="code-line">
                             &nbsp;&nbsp;<span class="keyword">constructor</span>() {
                         </div>
                         <div class="code-line">
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.vision = <span class="string">'Future'</span>;
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.name = <span class="string">'OB/E'</span>;
                         </div>
                         <div class="code-line">
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.tech = <span class="string">'Advanced'</span>;
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.focus = <span class="string">'Building & Learning'</span>;
                         </div>
                         <div class="code-line">
                             &nbsp;&nbsp;}
                         </div>
                         <div class="code-line">
-                            <span class="comment">// Building tomorrow's software</span>
+                            <span class="comment">// Creating one step at a time</span>
                         </div>
                         <div class="code-line">
                             }
@@ -650,53 +686,53 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
+    <!-- Projects Section -->
+    <section id="projects" class="services">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our Services</h2>
+                <h2 class="section-title">Featured Projects</h2>
                 <p class="section-subtitle">
-                    Comprehensive software solutions tailored to meet your business needs
+                    A collection of personal builds, experiments, and real-world solutions
                 </p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">⚡</div>
-                    <h3 class="service-title">Custom Software Development</h3>
+                    <div class="service-icon">🎨</div>
+                    <h3 class="service-title">Interactive Portfolio</h3>
                     <p class="service-description">
-                        Bespoke software solutions built from the ground up to match your specific requirements and business processes.
+                        A dynamic, code-driven portfolio that evolves with every experiment I try.
                     </p>
                     <ul class="service-features">
-                        <li>Full-stack development</li>
-                        <li>Scalable architecture</li>
-                        <li>Modern tech stack</li>
-                        <li>Agile methodology</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">☁️</div>
-                    <h3 class="service-title">Cloud Solutions</h3>
-                    <p class="service-description">
-                        Cloud-native applications and infrastructure solutions for enhanced scalability and reliability.
-                    </p>
-                    <ul class="service-features">
-                        <li>AWS/Azure/GCP</li>
-                        <li>Microservices architecture</li>
-                        <li>DevOps integration</li>
-                        <li>Auto-scaling solutions</li>
+                        <li>Three.js & WebGL visuals</li>
+                        <li>Responsive & accessible</li>
+                        <li>Live code demos</li>
+                        <li>Self-hosted experiments</li>
                     </ul>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">🤖</div>
-                    <h3 class="service-title">AI & Machine Learning</h3>
+                    <h3 class="service-title">AI-Powered Tools</h3>
                     <p class="service-description">
-                        Intelligent systems that learn and adapt, providing data-driven insights and automation.
+                        Small but smart tools that use AI to automate, assist, or surprise.
                     </p>
                     <ul class="service-features">
-                        <li>Predictive analytics</li>
-                        <li>Natural language processing</li>
-                        <li>Computer vision</li>
-                        <li>Recommendation systems</li>
+                        <li>Custom GPT workflows</li>
+                        <li>Voice & text interaction</li>
+                        <li>Real-time processing</li>
+                        <li>Privacy-first design</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3 class="service-title">Web Experiments</h3>
+                    <p class="service-description">
+                        Playground for testing new ideas — from shaders to AI, nothing is off-limits.
+                    </p>
+                    <ul class="service-features">
+                        <li>Canvas & WebGL</li>
+                        <li>Experimental UI</li>
+                        <li>Open-source code</li>
+                        <li>Fail fast, learn faster</li>
                     </ul>
                 </div>
             </div>
@@ -708,31 +744,31 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-content">
-                    <h2>Technology Excellence</h2>
+                    <h2>Who I Am</h2>
                     <p>
-                        We are a team of passionate software engineers, architects, and innovators 
-                        dedicated to building exceptional digital experiences.
+                        I'm a developer, designer, and tinkerer who loves building digital things 
+                        that are useful, beautiful, or just plain weird.
                     </p>
                     <p>
-                        Our expertise spans across modern technologies and methodologies, 
-                        ensuring that every solution we deliver is robust, scalable, and future-ready.
+                        This site is my lab, my sketchbook, and my resume — all in one. 
+                        I code for curiosity, not just for clients.
                     </p>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <span class="stat-number">100+</span>
-                            <span class="stat-label">Projects Delivered</span>
-                        </div>
-                        <div class="stat-item">
                             <span class="stat-number">50+</span>
-                            <span class="stat-label">Happy Clients</span>
+                            <span class="stat-label">Projects Built</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">5+</span>
-                            <span class="stat-label">Years Experience</span>
+                            <span class="stat-number">8+</span>
+                            <span class="stat-label">Technologies</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">Support</span>
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Years Learning</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Curiosity</span>
                         </div>
                     </div>
                 </div>
@@ -751,16 +787,16 @@
                             <div class="tech-name">Python</div>
                         </div>
                         <div class="tech-item">
-                            <div class="tech-icon">☁️</div>
-                            <div class="tech-name">AWS</div>
+                            <div class="tech-icon">🌐</div>
+                            <div class="tech-name">Three.js</div>
                         </div>
                         <div class="tech-item">
-                            <div class="tech-icon">🐳</div>
-                            <div class="tech-name">Docker</div>
+                            <div class="tech-icon">🧠</div>
+                            <div class="tech-name">TensorFlow</div>
                         </div>
                         <div class="tech-item">
-                            <div class="tech-icon">📊</div>
-                            <div class="tech-name">AI/ML</div>
+                            <div class="tech-icon">🎨</div>
+                            <div class="tech-name">Figma</div>
                         </div>
                     </div>
                 </div>
@@ -772,17 +808,17 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="contact-content">
-                <h2>Start Your Project</h2>
+                <h2>Let’s Talk</h2>
                 <p>
-                    Ready to transform your ideas into powerful software solutions? 
-                    Let's discuss your project and explore how we can help you achieve your goals.
+                    Have a project in mind? Want to collaborate or just say hi? 
+                    I’d love to hear from you.
                 </p>
                 <div class="contact-form">
                     <input type="text" class="contact-input" placeholder="Your Name">
                     <input type="email" class="contact-input" placeholder="Email Address">
-                    <textarea class="contact-input contact-message" placeholder="Tell us about your project..."></textarea>
+                    <textarea class="contact-input contact-message" placeholder="What’s on your mind?"></textarea>
                 </div>
-                <button class="btn btn-primary">Send Message</button>
+                <button class="btn btn-primary" onclick="alert('Thanks! I’ll get back to you soon.')">Send Message</button>
             </div>
         </div>
     </section>
@@ -793,44 +829,51 @@
             <div class="footer-section">
                 <h3>OB<span style="color: #ff1d1d;">/</span>E</h3>
                 <p style="color: rgba(255, 255, 255, 0.6); margin-top: 1rem;">
-                    Building the future with innovative software solutions.
+                    A personal space for code, creativity, and curiosity.
                 </p>
             </div>
             <div class="footer-section">
-                <h3>Services</h3>
+                <h3>Work</h3>
                 <ul>
-                    <li><a href="#">Custom Development</a></li>
-                    <li><a href="#">Cloud Solutions</a></li>
-                    <li><a href="#">AI & Machine Learning</a></li>
-                    <li><a href="#">Consulting</a></li>
+                    <li><a href="Projects/index.html">All Projects</a></li>
+                    <li><a href="Projects/index.html#web">Web Development</a></li>
+                    <li><a href="Projects/index.html#ai">AI Experiments</a></li>
+                    <li><a href="Lab/index.html">Lab Experiments</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h3>Company</h3>
+                <h3>About</h3>
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Our Team</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="About/index.html">Who I Am</a></li>
+                    <li><a href="About/skills.html">Skills</a></li>
+                    <li><a href="About/story.html">My Story</a></li>
+                    <li><a href="Contact/index.html">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h3>Resources</h3>
+                <h3>Elsewhere</h3>
                 <ul>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Case Studies</a></li>
-                    <li><a href="#">Documentation</a></li>
-                    <li><a href="#">Support</a></li>
+                    <li><a href="https://github.com/obe" target="_blank">GitHub</a></li>
+                    <li><a href="https://linkedin.com/in/obe" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://twitter.com/obe" target="_blank">Twitter</a></li>
+                    <li><a href="Blog/index.html">Blog</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 OB/E. All rights reserved.</p>
+            <p>&copy; 2025 OB/E. Made with curiosity.</p>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -840,18 +883,35 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    navLinks.classList.remove('active');
                 }
             });
         });
 
-        // Header scroll effect
+        // Highlight active section in nav
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
             if (window.scrollY > 50) {
                 header.style.background = 'rgba(10, 10, 10, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.2)';
             } else {
                 header.style.background = 'rgba(10, 10, 10, 0.95)';
+                header.style.boxShadow = 'none';
             }
+
+            document.querySelectorAll('section').forEach(sec => {
+                const top = sec.offsetTop - 100;
+                const bottom = top + sec.offsetHeight;
+                if (window.scrollY >= top && window.scrollY < bottom) {
+                    const id = sec.getAttribute('id');
+                    document.querySelectorAll('.nav-links a').forEach(a => {
+                        a.classList.remove('active');
+                        if (a.getAttribute('href') === `#${id}` || a.getAttribute('href').includes(`#${id}`)) {
+                            a.classList.add('active');
+                        }
+                    });
+                }
+            });
         });
 
         // Intersection Observer for animations
@@ -859,7 +919,6 @@
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -868,8 +927,6 @@
                 }
             });
         }, observerOptions);
-
-        // Observe elements for animation
         document.querySelectorAll('.service-card, .tech-item').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
